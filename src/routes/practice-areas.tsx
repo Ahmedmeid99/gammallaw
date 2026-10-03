@@ -29,14 +29,11 @@ function PracticeAreasPage() {
         <section className="practice-list" aria-labelledby="our-areas-title">
           <h2 id="our-areas-title">Our Areas</h2>
           <div className="practice-grid">
-            {PRACTICE_CATALOG.map((area, index) => (
+            {PRACTICE_CATALOG.map((area) => (
               <a className="practice-card" id={area.id} key={area.id} href={area.href}>
-                <img src={area.localImage} alt={area.titleEn} />
+                <img src={area.localImage} alt={area.titleEn} loading="lazy" />
                 <h3>{area.titleEn}</h3>
                 <span className="sr-only">Open {area.titleEn}</span>
-                <span className="practice-card-number" aria-hidden="true">
-                  {index + 1}
-                </span>
               </a>
             ))}
           </div>

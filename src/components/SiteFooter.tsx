@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 type SocialNetwork = "facebook" | "linkedin" | "instagram";
 
 function SocialIcon({ network }: { network: SocialNetwork }) {
@@ -74,9 +76,16 @@ export function SiteFooter() {
         <div className="footer-main">
           <div className="footer-intro">
             <img src="/reference-assets/logo.png" alt="MG Law Firm" />
-            <div>
+            <div className="footer-brand-copy">
               <span>MG LAW FIRM</span>
               <h2>Comprehensive Legal Services Across Our Offices</h2>
+              <p>
+                Strategic legal counsel built on integrity, precision, and more than 25 years of
+                trusted experience.
+              </p>
+              <a className="footer-cta" href="/appointments">
+                Book a consultation <span aria-hidden="true">→</span>
+              </a>
             </div>
           </div>
 
@@ -147,13 +156,17 @@ export function SiteFooter() {
                 </a>
               </div>
             </div>
-            <nav className="footer-nav" aria-label="Footer navigation">
-              <a href="/about">About</a>
-              <a href="/practice-areas">Practice Areas</a>
-              <a href="/careers">Careers</a>
-              <a href="/news">News</a>
-              <a href="/contact-us">Contact Us</a>
-            </nav>
+            <div className="footer-navigation">
+              <span>Explore</span>
+              <nav className="footer-nav" aria-label="Footer navigation">
+                <a href="/about">About</a>
+                <a href="/practice-areas">Practice Areas</a>
+                <a href="/our-team">Our Team</a>
+                <a href="/careers">Careers</a>
+                <a href="/news">News</a>
+                <a href="/contact-us">Contact Us</a>
+              </nav>
+            </div>
           </div>
         </div>
         <div className="copyright">
@@ -174,4 +187,3 @@ export function SiteFooter() {
     </>
   );
 }
-import { useEffect, useState } from "react";

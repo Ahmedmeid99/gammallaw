@@ -1,9 +1,11 @@
 export type TeamGroup =
-  | "Leadership and Partners"
-  | "Counsel and Department Heads"
-  | "Senior Associates"
-  | "Junior Associates"
-  | "Interns and Administration";
+  | "Founding and Managing Partner"
+  | "Partners"
+  | "Councels"
+  | "Managing Associates"
+  | "Corporate Team"
+  | "Litigation Team"
+  | "Administration";
 
 export interface TeamMember {
   slug: string;
@@ -21,8 +23,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "mohammed-elgammal",
     name: "Mohammed El-Gammal",
-    role: "Chief Attorney & Founder",
-    group: "Leadership and Partners",
+    role: "Founding and Managing Partner",
+    group: "Founding and Managing Partner",
     image: image("mohammed-elgammal.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -31,8 +33,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "mohamed-fathy",
     name: "Mohamed Fathy",
-    role: "Executive Counsel",
-    group: "Leadership and Partners",
+    role: "Partner - Head of Litigation and Real Estate",
+    group: "Partners",
     image: image("mohamed-fathy.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -41,8 +43,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "ahmed-fathy-elgammal",
     name: "Ahmed Fathy El-Gammal",
-    role: "Executive Counsel",
-    group: "Leadership and Partners",
+    role: "Partner - Head of Corporate and Contracts",
+    group: "Partners",
     image: image("ahmed-fathy-elgammal.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -51,8 +53,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "alaa-mandour",
     name: "Alaa Mandour",
-    role: "Legal Consultant",
-    group: "Counsel and Department Heads",
+    role: "Of Counsel",
+    group: "Councels",
     image: image("alaa-mandour.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -61,8 +63,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "mahmoud-salah-el-din-el-sayed",
     name: "Mahmoud Salah",
-    role: "Head Of Litigation Giza Branch",
-    group: "Counsel and Department Heads",
+    role: "Senior Associate",
+    group: "Litigation Team",
     image: image("mahmoud-salah.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -71,8 +73,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "mohamed-marzouk",
     name: "Mohamed Marzouk",
-    role: "Head of Litigation Zamalek Branch",
-    group: "Counsel and Department Heads",
+    role: "Managing Associate - Litigation",
+    group: "Managing Associates",
     image: image("mohamed-marzouk.avif"),
     email: "info@gammallaw.com",
     biography:
@@ -82,7 +84,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "tarek-yehia-fahmy-zakher",
     name: "Tarek Yahia",
     role: "Sr. Associate",
-    group: "Senior Associates",
+    group: "Litigation Team",
     image: image("tarek-yahia.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -92,7 +94,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "hosseiny-ahmed-haiba",
     name: "Hosseiny Ahmed",
     role: "Sr. Associate",
-    group: "Senior Associates",
+    group: "Litigation Team",
     image: image("hosseiny-ahmed.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -102,7 +104,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "aly-younis",
     name: "Aly Younis",
     role: "Sr. Associate",
-    group: "Senior Associates",
+    group: "Corporate Team",
     image: image("aly-younis.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -112,7 +114,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "abdelrahman-mohamed",
     name: "Abdelrahman Mohamed",
     role: "Sr. Associate",
-    group: "Senior Associates",
+    group: "Litigation Team",
     image: image("abdelrahman-mohamed.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -121,8 +123,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "rehab-sultan",
     name: "Rehab Sultan",
-    role: "Jr. Associate",
-    group: "Junior Associates",
+    role: "Managing Associate - Litigation / IP",
+    group: "Managing Associates",
     image: image("rehab-sultan.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -132,7 +134,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "amr-elkhouly",
     name: "Amr Elkhouly",
     role: "Jr. Associate",
-    group: "Junior Associates",
+    group: "Litigation Team",
     image: image("amr-elkhouly.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -142,7 +144,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "mahmoud-shalaany",
     name: "Mahmoud Shalaany",
     role: "Jr. Associate",
-    group: "Junior Associates",
+    group: "Litigation Team",
     image: image("mahmoud-shalaany.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -152,7 +154,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "kareem-ragab-2",
     name: "Kareem Ragab",
     role: "Jr. Associate",
-    group: "Junior Associates",
+    group: "Corporate Team",
     image: image("kareem-ragab.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -162,7 +164,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "ahmed-hany",
     name: "Ahmed Hany",
     role: "Jr. Associate",
-    group: "Junior Associates",
+    group: "Litigation Team",
     image: image("ahmed-hany.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -172,7 +174,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "maryam-hamam",
     name: "Maryam Hammam",
     role: "Jr. Associate",
-    group: "Junior Associates",
+    group: "Corporate Team",
     image: image("maryam-hammam.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -182,7 +184,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "amina-agamy",
     name: "Amina Agamy",
     role: "Jr. Associate",
-    group: "Junior Associates",
+    group: "Corporate Team",
     image: image("amina-agamy.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -192,7 +194,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "menna-boudy",
     name: "Menna Boudy",
     role: "Jr. Associate",
-    group: "Junior Associates",
+    group: "Corporate Team",
     image: image("menna-boudy.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -202,7 +204,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "abdelrahman-salah",
     name: "Abdelrahman Salah",
     role: "Jr. Associate",
-    group: "Junior Associates",
+    group: "Litigation Team",
     image: image("abdelrahman-salah.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -211,8 +213,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "zeina-hassanein",
     name: "Zeina Hassanein",
-    role: "Intern",
-    group: "Interns and Administration",
+    role: "Junior Associate",
+    group: "Corporate Team",
     image: image("zeina-hassanein.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -221,8 +223,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "yara-mostafa",
     name: "Yara Mostafa",
-    role: "Intern",
-    group: "Interns and Administration",
+    role: "Junior Associate",
+    group: "Corporate Team",
     image: image("yara-mostafa.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -232,7 +234,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     slug: "hend-sherif",
     name: "Hend Zain",
     role: "Admin Manager",
-    group: "Interns and Administration",
+    group: "Administration",
     image: image("hend-zain.jpg"),
     email: "info@gammallaw.com",
     biography:
@@ -241,9 +243,10 @@ export const TEAM_MEMBERS: TeamMember[] = [
 ];
 
 export const TEAM_GROUPS: TeamGroup[] = [
-  "Leadership and Partners",
-  "Counsel and Department Heads",
-  "Senior Associates",
-  "Junior Associates",
-  "Interns and Administration",
+  "Founding and Managing Partner",
+  "Partners",
+  "Councels",
+  "Managing Associates",
+  "Corporate Team",
+  "Litigation Team",
 ];

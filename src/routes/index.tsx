@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { ContactHelp } from "../components/ContactBlocks";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteHeader } from "../components/SiteHeader";
 import { PRACTICE_CATALOG } from "../data/practiceCatalog";
@@ -13,10 +12,8 @@ const asset = (name: string) => `/reference-assets/${name}`;
 const heroVideo = asset("Istock-668260908-1-1-1-1-1.mp4");
 const clientAssets = [
   ["ESLSCA University", "client-eslsca.png"],
-  ["Habitat", "client-habitat.jpg"],
   ["AUG Pharma", "client-aug.png"],
   ["TUV NORD", "client-tuv.png"],
-  ["Mahmoud El Sirgany", "client-sirgany.jpg"],
   ["Majid Al Futtaim", "client-majid.png"],
   ["Elrawas", "client-elrawas.png"],
   ["IGI", "client-igi.png"],
@@ -247,16 +244,11 @@ function HomePage() {
           <div className="site-container">
             <h2 className="section-title">Our Areas</h2>
             <div className="areas-grid">
-              {PRACTICE_CATALOG.map((area, index) => (
+              {PRACTICE_CATALOG.map((area) => (
                 <a className="area-card" key={area.id} href={area.href}>
                   <div className="area-card-image">
-                    <img src={area.localImage} alt={area.titleEn} />
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                  </div>
-                  <div className="area-card-copy">
+                    <img src={area.localImage} alt={area.titleEn} loading="lazy" />
                     <h3>{area.titleEn}</h3>
-                    <p>{area.shortDescEn}</p>
-                    <strong aria-hidden="true">Learn more&nbsp; →</strong>
                   </div>
                 </a>
               ))}
@@ -410,9 +402,12 @@ function HomePage() {
                   <a className="update-card" key={article.id} href="/news">
                     <img
                       src={asset(
-                        article === SITE_DATA.news[0] ? "news-trademark.jpeg" : "news-company.jpeg",
+                        article === SITE_DATA.news[0]
+                          ? "news-trademark-v2.jpg"
+                          : "news-company-v2.jpg",
                       )}
                       alt={article.titleEn}
+                      loading="lazy"
                     />
                     <h3>{article.titleEn}</h3>
                   </a>
@@ -420,20 +415,14 @@ function HomePage() {
               </div>
             </div>
           </div>
-          <div className="site-container">
-            <div className="map-placeholder" aria-label="Map showing MG Law Firm in Zamalek">
-              <iframe
-                title="MG Law Firm location"
-                loading="lazy"
-                src="https://maps.google.com/maps?q=35B%20Mohamed%20Mazhar%20St.%2C%20Zamalek%2C%20Cairo&z=14&output=embed"
-              />
-            </div>
+          <div className="map-placeholder" aria-label="Map showing MG Law Firm in Zamalek">
+            <iframe
+              title="MG Law Firm location"
+              loading="lazy"
+              src="https://maps.google.com/maps?q=35B%20Mohamed%20Mazhar%20St.%2C%20Zamalek%2C%20Cairo&z=14&output=embed"
+            />
           </div>
         </section>
-
-        <div id="contact">
-          <ContactHelp />
-        </div>
       </main>
 
       <SiteFooter />

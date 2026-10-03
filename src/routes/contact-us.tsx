@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ContactHelp, OfficeMap } from "../components/ContactBlocks";
+import { OfficeMap } from "../components/ContactBlocks";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteHeader } from "../components/SiteHeader";
 
@@ -47,7 +47,6 @@ function ContactUsPage() {
           </form>
         </section>
         <OfficeMap />
-        <ContactHelp />
       </main>
       <SiteFooter />
     </div>

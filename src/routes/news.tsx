@@ -30,7 +30,7 @@ function NewsPage() {
             {NEWS_CATALOG.map((article) => (
               <article className="news-archive-card" key={article.id}>
                 <a className="news-card-image" href={article.href}>
-                  <img src={article.image} alt={article.title} />
+                  <img src={article.image} alt={article.title} loading="lazy" />
                 </a>
                 <div className="news-card-copy">
                   <h3>

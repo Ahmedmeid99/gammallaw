@@ -37,7 +37,7 @@ export const NEWS_CATALOG: NewsEntry[] = [
     id: "infringement-of-a-registered-trademark",
     title: "Infringement of a Registered Trademark",
     href: "/news/infringement-of-a-registered-trademark",
-    image: "/reference-assets/news-trademark.jpeg",
+    image: "/reference-assets/news-trademark-v2.jpg",
     category: "Intellectual Property",
     date: "23 March 2025",
     author: "admin",
@@ -49,7 +49,7 @@ export const NEWS_CATALOG: NewsEntry[] = [
     title:
       "Requirements, Procedures, Timeline, and Options for establishing a Joint Stock Company and Registering in the Importers Register",
     href: "/news/joint-stock-company-and-importers-register",
-    image: "/reference-assets/news-company.jpeg",
+    image: "/reference-assets/news-company-v2.jpg",
     category: "Contracts and Agreements",
     date: "27 May 2017",
     author: "admin",

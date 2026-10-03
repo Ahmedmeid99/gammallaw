@@ -1,18 +1,18 @@
 import { SITE_DATA } from "./siteData";
 
 const routeDetails = [
-  ["corporate-commercial", "corporate_and_commercial", "practice-corporate.jpeg"],
-  ["contracts-agreements", "contracts_and_agreements", "practice-contracts.jpeg"],
-  ["civil-law-litigation", "civil_law_and_litigation", "practice-litigation.jpg"],
-  ["labour-hr-services", "labour_law_and_hr_services", "practice-labour.jpg"],
-  ["intellectual-property", "intellectual_property_protection", "practice-ip.jpeg"],
-  ["real-estate", "real_estate", "practice-real-estate.jpeg"],
-  ["licences-approvals", "licences_and_approvals", "practice-licences.jpeg"],
-  ["legal-consultancy-research", "legal_consultancy_and_research", "practice-research.jpeg"],
+  ["corporate-commercial", "corporate_and_commercial", "practice-corporate-v2.jpg"],
+  ["contracts-agreements", "contracts_and_agreements", "practice-contracts-v2.jpg"],
+  ["civil-law-litigation", "civil_law_and_litigation", "practice-litigation-v2.jpg"],
+  ["labour-hr-services", "labour_law_and_hr_services", "practice-labour-v2.jpg"],
+  ["intellectual-property", "intellectual_property_protection", "practice-ip-v2.jpg"],
+  ["real-estate", "real_estate", "practice-real-estate-v2.jpg"],
+  ["licences-approvals", "licences_and_approvals", "practice-licences-v2.jpg"],
+  ["legal-consultancy-research", "legal_consultancy_and_research", "practice-research-v2.jpg"],
   [
     "residency-dual-nationality",
     "residency_and_dual_nationality_passport",
-    "practice-residency.jpg",
+    "practice-residency-v2.jpg",
   ],
 ] as const;
 
