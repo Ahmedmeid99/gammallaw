@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "@tanstack/react-router";
 import { CAREER_CATALOG, NEWS_CATALOG } from "../data/contentCatalog";
 import { PRACTICE_CATALOG } from "../data/practiceCatalog";
@@ -14,6 +14,7 @@ const navItems = [
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileSubmenu, setMobileSubmenu] = useState<"home" | "practice" | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const location = useLocation();
@@ -42,8 +43,25 @@ export function SiteHeader() {
 
   const closeMenu = () => {
     setMenuOpen(false);
+    setMobileSubmenu(null);
     setSearchOpen(false);
   };
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMenu();
+    };
+
+    document.body.classList.add("menu-is-open");
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.classList.remove("menu-is-open");
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [menuOpen]);
 
   return (
     <header className="site-header">
@@ -51,7 +69,7 @@ export function SiteHeader() {
         <img src="/reference-assets/logo.png" alt="MG Law Firm" />
       </a>
       <button
-        className="menu-toggle"
+        className={menuOpen ? "menu-toggle is-open" : "menu-toggle"}
         aria-label="Toggle navigation"
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((value) => !value)}
@@ -60,17 +78,43 @@ export function SiteHeader() {
         <span />
         <span />
       </button>
+      {menuOpen && (
+        <button
+          className="menu-backdrop"
+          type="button"
+          aria-label="Close navigation"
+          onClick={closeMenu}
+        />
+      )}
       <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Main navigation">
         <div className="home-nav-item nav-dropdown-item">
-          <a
-            className={location.pathname === "/" ? "active" : ""}
-            href={navItems[0][1]}
-            aria-current={location.pathname === "/" ? "page" : undefined}
-            onClick={closeMenu}
+          <div className="nav-parent-row">
+            <a
+              className={location.pathname === "/" ? "active" : ""}
+              href={navItems[0][1]}
+              aria-current={location.pathname === "/" ? "page" : undefined}
+              onClick={closeMenu}
+            >
+              Home
+            </a>
+            <button
+              className="mobile-submenu-toggle"
+              type="button"
+              aria-label="Toggle home sections"
+              aria-expanded={mobileSubmenu === "home"}
+              onClick={() => setMobileSubmenu((value) => (value === "home" ? null : "home"))}
+            >
+              <span>⌄</span>
+            </button>
+          </div>
+          <div
+            className={
+              mobileSubmenu === "home"
+                ? "home-dropdown nav-submenu is-mobile-open"
+                : "home-dropdown nav-submenu"
+            }
+            aria-label="Home sections"
           >
-            Home
-          </a>
-          <div className="home-dropdown nav-submenu" aria-label="Home sections">
             <a href="/#clients" onClick={closeMenu}>
               Our Valued Clients
             </a>
@@ -88,15 +132,35 @@ export function SiteHeader() {
           About
         </a>
         <div className="practice-nav-item nav-dropdown-item">
-          <a
-            className={practiceActive ? "active" : ""}
-            href="/practice-areas"
-            aria-current={practiceActive ? "page" : undefined}
-            onClick={closeMenu}
+          <div className="nav-parent-row">
+            <a
+              className={practiceActive ? "active" : ""}
+              href="/practice-areas"
+              aria-current={practiceActive ? "page" : undefined}
+              onClick={closeMenu}
+            >
+              Practice Areas
+            </a>
+            <button
+              className="mobile-submenu-toggle"
+              type="button"
+              aria-label="Toggle practice areas"
+              aria-expanded={mobileSubmenu === "practice"}
+              onClick={() =>
+                setMobileSubmenu((value) => (value === "practice" ? null : "practice"))
+              }
+            >
+              <span>⌄</span>
+            </button>
+          </div>
+          <div
+            className={
+              mobileSubmenu === "practice"
+                ? "practice-dropdown nav-submenu is-mobile-open"
+                : "practice-dropdown nav-submenu"
+            }
+            aria-label="Practice areas"
           >
-            Practice Areas
-          </a>
-          <div className="practice-dropdown nav-submenu" aria-label="Practice areas">
             {PRACTICE_CATALOG.map((area) => (
               <a key={area.id} href={area.href} onClick={closeMenu}>
                 {area.titleEn}

@@ -59,6 +59,15 @@ function ContactIcon({ type }: { type: "pin" | "phone" | "mail" | "clock" }) {
 }
 
 export function SiteFooter() {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const syncBackToTop = () => setShowBackToTop(window.scrollY > 520);
+    syncBackToTop();
+    window.addEventListener("scroll", syncBackToTop, { passive: true });
+    return () => window.removeEventListener("scroll", syncBackToTop);
+  }, []);
+
   return (
     <>
       <footer className="site-footer">
@@ -152,11 +161,17 @@ export function SiteFooter() {
           <span>Strategic counsel. Enduring partnerships.</span>
         </div>
       </footer>
-      <a className="back-to-top" href="#top" aria-label="Scroll to top">
+      <button
+        className={showBackToTop ? "back-to-top is-visible" : "back-to-top"}
+        type="button"
+        aria-label="Scroll to top"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="m6 14 6-6 6 6" />
         </svg>
-      </a>
+      </button>
     </>
   );
 }
+import { useEffect, useState } from "react";
