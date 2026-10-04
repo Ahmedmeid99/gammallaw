@@ -2,26 +2,59 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteHeader } from "../components/SiteHeader";
 import { NEWS_CATALOG } from "../data/contentCatalog";
+import { SITE_DATA } from "../data/siteData";
+import { useLanguage } from "../i18n/LanguageContext";
+import { SITE_URL, createSeoHead } from "../lib/seo";
 
 export const Route = createFileRoute("/news_/$newsId")({
   component: NewsDetailPage,
   head: ({ params }) => {
     const article = NEWS_CATALOG.find((item) => item.id === params.newsId);
-    return { meta: [{ title: article?.title ?? "MG LAW News" }] };
+    const title = article?.title ?? "MG Law Firm Legal News";
+    const path = article?.href ?? `/news/${params.newsId}`;
+    const publishedDates: Record<string, string> = {
+      "infringement-of-a-registered-trademark": "2025-03-23",
+      "joint-stock-company-and-importers-register": "2017-05-27",
+    };
+    return createSeoHead({
+      title: `${title} | MG Law Firm`,
+      description: article?.summary ?? "Legal news and insights on Egyptian law from MG Law Firm.",
+      path,
+      image: article ? `${SITE_URL}${article.image}` : undefined,
+      type: "article",
+      keywords: article ? [`${article.category} Egypt`, "Egyptian legal opinion"] : [],
+      jsonLd: article
+        ? {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: article.title,
+            description: article.summary,
+            image: `${SITE_URL}${article.image}`,
+            datePublished: publishedDates[article.id],
+            dateModified: publishedDates[article.id],
+            mainEntityOfPage: `${SITE_URL}${article.href}`,
+            author: { "@id": `${SITE_URL}/#organization` },
+            publisher: { "@id": `${SITE_URL}/#organization` },
+          }
+        : undefined,
+    });
   },
 });
 
 function NewsDetailPage() {
+  const { isArabic } = useLanguage();
   const { newsId } = Route.useParams();
   const article = NEWS_CATALOG.find((item) => item.id === newsId);
+  const articleIndex = NEWS_CATALOG.findIndex((item) => item.id === newsId);
+  const localizedArticle = SITE_DATA.news[articleIndex];
 
   if (!article) {
     return (
       <div id="top" className="site-shell">
         <SiteHeader />
         <main className="service-missing">
-          <h1>News article not found</h1>
-          <a href="/news">Return to News</a>
+          <h1>{isArabic ? "المقال غير موجود" : "News article not found"}</h1>
+          <a href="/news">{isArabic ? "العودة إلى الأخبار" : "Return to News"}</a>
         </main>
         <SiteFooter />
       </div>
@@ -34,30 +67,54 @@ function NewsDetailPage() {
       <main>
         <section className="archive-title-hero news-title-hero" aria-labelledby="article-title">
           <div className="archive-title-inner">
-            <h1 id="article-title">{article.title}</h1>
-            <div className="breadcrumbs detail-breadcrumbs" aria-label="Breadcrumb">
-              <a href="/">Home</a>
+            <h1 id="article-title">
+              {isArabic && localizedArticle ? localizedArticle.titleAr : article.title}
+            </h1>
+            <div
+              className="breadcrumbs detail-breadcrumbs"
+              aria-label={isArabic ? "مسار الصفحة" : "Breadcrumb"}
+            >
+              <a href="/">{isArabic ? "الرئيسية" : "Home"}</a>
               <span aria-hidden="true">›</span>
-              <a href="/news">News</a>
+              <a href="/news">{isArabic ? "الأخبار" : "News"}</a>
               <span aria-hidden="true">›</span>
-              <strong>{article.title}</strong>
+              <strong>
+                {isArabic && localizedArticle ? localizedArticle.titleAr : article.title}
+              </strong>
             </div>
           </div>
         </section>
 
         <article className="news-detail-content">
-          <img className="news-detail-image" src={article.image} alt={article.title} />
+          <img
+            className="news-detail-image"
+            src={article.image}
+            alt={isArabic && localizedArticle ? localizedArticle.titleAr : article.title}
+          />
           <div className="news-detail-meta">
-            <a href="/news">{article.category}</a>
+            <a href="/news">
+              {isArabic && localizedArticle ? localizedArticle.categoryAr : article.category}
+            </a>
             <span>{article.date}</span>
-            <span>by {article.author}</span>
+            <span>{isArabic ? "بقلم فريق إم جي" : `by ${article.author}`}</span>
           </div>
-          {newsId === "infringement-of-a-registered-trademark" ? (
+          {isArabic && localizedArticle ? (
+            <>
+              <h2>ملخص الرأي القانوني</h2>
+              <p>{localizedArticle.summaryAr}</p>
+              <p>
+                يقدم مكتب إم جي للمحاماة الاستشارات والتمثيل القانوني المتخصص في هذا الموضوع وفقاً
+                للتشريعات المصرية والإجراءات المعمول بها أمام الجهات المختصة.
+              </p>
+            </>
+          ) : newsId === "infringement-of-a-registered-trademark" ? (
             <TrademarkArticle />
           ) : (
             <CompanyArticle />
           )}
-          <div className="news-tags">Tags: Agreements, Contracts</div>
+          <div className="news-tags">
+            {isArabic ? "الوسوم: اتفاقيات، عقود" : "Tags: Agreements, Contracts"}
+          </div>
         </article>
       </main>
       <SiteFooter />

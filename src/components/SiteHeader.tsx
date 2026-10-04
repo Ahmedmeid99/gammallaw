@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { useLocation } from "@tanstack/react-router";
 import { CAREER_CATALOG, NEWS_CATALOG } from "../data/contentCatalog";
 import { PRACTICE_CATALOG } from "../data/practiceCatalog";
+import { SITE_DATA } from "../data/siteData";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const navItems = [
-  ["Home", "/"],
-  ["About", "/about"],
-  ["Our Team", "/our-team"],
-  ["Careers", "/careers"],
-  ["News", "/news"],
-  ["Contact Us", "/contact-us"],
+  ["Home", "الرئيسية", "/"],
+  ["About", "عن المكتب", "/about"],
+  ["Our Team", "فريق العمل", "/our-team"],
+  ["Careers", "الوظائف", "/careers"],
+  ["News", "الأخبار", "/news"],
+  ["Contact Us", "اتصل بنا", "/contact-us"],
 ] as const;
 
 export function SiteHeader() {
@@ -17,6 +19,7 @@ export function SiteHeader() {
   const [mobileSubmenu, setMobileSubmenu] = useState<"home" | "practice" | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const { isArabic, setLanguage } = useLanguage();
   const location = useLocation();
   const practiceActive =
     location.pathname.startsWith("/practice-areas") || location.pathname.startsWith("/services/");
@@ -27,12 +30,20 @@ export function SiteHeader() {
 
   const searchItems = [
     ...PRACTICE_CATALOG.map((item) => ({
-      title: item.titleEn,
-      type: "Practice Area",
+      title: isArabic ? item.titleAr : item.titleEn,
+      type: isArabic ? "مجال قانوني" : "Practice Area",
       href: item.href,
     })),
-    ...CAREER_CATALOG.map((item) => ({ title: item.title, type: "Career", href: item.href })),
-    ...NEWS_CATALOG.map((item) => ({ title: item.title, type: "News", href: item.href })),
+    ...CAREER_CATALOG.map((item, index) => ({
+      title: isArabic ? SITE_DATA.careers[index]?.titleAr || item.title : item.title,
+      type: isArabic ? "وظيفة" : "Career",
+      href: item.href,
+    })),
+    ...NEWS_CATALOG.map((item, index) => ({
+      title: isArabic ? SITE_DATA.news[index]?.titleAr || item.title : item.title,
+      type: isArabic ? "خبر" : "News",
+      href: item.href,
+    })),
   ];
   const normalizedQuery = query.trim().toLowerCase();
   const results = normalizedQuery
@@ -65,12 +76,17 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <a className="logo-link" href="/" aria-label="MG Law Firm home" onClick={closeMenu}>
+      <a
+        className="logo-link"
+        href="/"
+        aria-label={isArabic ? "الصفحة الرئيسية لمكتب إم جي لو" : "MG Law Firm home"}
+        onClick={closeMenu}
+      >
         <img src="/reference-assets/logo.png" alt="MG Law Firm" />
       </a>
       <button
         className={menuOpen ? "menu-toggle is-open" : "menu-toggle"}
-        aria-label="Toggle navigation"
+        aria-label={isArabic ? "فتح قائمة التنقل" : "Toggle navigation"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((value) => !value)}
       >
@@ -82,29 +98,34 @@ export function SiteHeader() {
         <button
           className="menu-backdrop"
           type="button"
-          aria-label="Close navigation"
+          aria-label={isArabic ? "إغلاق قائمة التنقل" : "Close navigation"}
           onClick={closeMenu}
         />
       )}
-      <nav className={menuOpen ? "main-nav is-open" : "main-nav"} aria-label="Main navigation">
+      <nav
+        className={menuOpen ? "main-nav is-open" : "main-nav"}
+        aria-label={isArabic ? "التنقل الرئيسي" : "Main navigation"}
+      >
         <div className="home-nav-item nav-dropdown-item">
           <div className="nav-parent-row">
             <a
               className={location.pathname === "/" ? "active" : ""}
-              href={navItems[0][1]}
+              href={navItems[0][2]}
               aria-current={location.pathname === "/" ? "page" : undefined}
               onClick={closeMenu}
             >
-              Home
+              {isArabic ? navItems[0][1] : navItems[0][0]}
             </a>
             <button
               className="mobile-submenu-toggle"
               type="button"
-              aria-label="Toggle home sections"
+              aria-label={isArabic ? "عرض أقسام الرئيسية" : "Toggle home sections"}
               aria-expanded={mobileSubmenu === "home"}
               onClick={() => setMobileSubmenu((value) => (value === "home" ? null : "home"))}
             >
-              <span>⌄</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m7 9.5 5 5 5-5" />
+              </svg>
             </button>
           </div>
           <div
@@ -113,23 +134,23 @@ export function SiteHeader() {
                 ? "home-dropdown nav-submenu is-mobile-open"
                 : "home-dropdown nav-submenu"
             }
-            aria-label="Home sections"
+            aria-label={isArabic ? "أقسام الرئيسية" : "Home sections"}
           >
             <a href="/#clients" onClick={closeMenu}>
-              Our Valued Clients
+              {isArabic ? "عملاؤنا المميزون" : "Our Valued Clients"}
             </a>
             <a href="/#reviews" onClick={closeMenu}>
-              Client Reviews
+              {isArabic ? "آراء العملاء" : "Client Reviews"}
             </a>
           </div>
         </div>
         <a
           className={location.pathname === "/about" ? "active" : ""}
-          href={navItems[1][1]}
+          href={navItems[1][2]}
           aria-current={location.pathname === "/about" ? "page" : undefined}
           onClick={closeMenu}
         >
-          About
+          {isArabic ? navItems[1][1] : navItems[1][0]}
         </a>
         <div className="practice-nav-item nav-dropdown-item">
           <div className="nav-parent-row">
@@ -139,18 +160,20 @@ export function SiteHeader() {
               aria-current={practiceActive ? "page" : undefined}
               onClick={closeMenu}
             >
-              Practice Areas
+              {isArabic ? "مجالات العمل" : "Practice Areas"}
             </a>
             <button
               className="mobile-submenu-toggle"
               type="button"
-              aria-label="Toggle practice areas"
+              aria-label={isArabic ? "عرض مجالات العمل" : "Toggle practice areas"}
               aria-expanded={mobileSubmenu === "practice"}
               onClick={() =>
                 setMobileSubmenu((value) => (value === "practice" ? null : "practice"))
               }
             >
-              <span>⌄</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m7 9.5 5 5 5-5" />
+              </svg>
             </button>
           </div>
           <div
@@ -159,91 +182,139 @@ export function SiteHeader() {
                 ? "practice-dropdown nav-submenu is-mobile-open"
                 : "practice-dropdown nav-submenu"
             }
-            aria-label="Practice areas"
+            aria-label={isArabic ? "مجالات العمل" : "Practice areas"}
           >
             {PRACTICE_CATALOG.map((area) => (
               <a key={area.id} href={area.href} onClick={closeMenu}>
-                {area.titleEn}
+                {isArabic ? area.titleAr : area.titleEn}
               </a>
             ))}
           </div>
         </div>
-        {navItems.slice(2).map(([label, href]) => {
+        {navItems.slice(2).map(([labelEn, labelAr, href]) => {
           const active =
-            (label === "Our Team" && teamActive) ||
-            (label === "Careers" && careersActive) ||
-            (label === "News" && newsActive) ||
-            (label === "Contact Us" && location.pathname === "/contact-us");
+            (labelEn === "Our Team" && teamActive) ||
+            (labelEn === "Careers" && careersActive) ||
+            (labelEn === "News" && newsActive) ||
+            (labelEn === "Contact Us" && location.pathname === "/contact-us");
 
           return (
             <a
-              key={label}
+              key={labelEn}
               className={active ? "active" : ""}
               href={href}
               aria-current={active ? "page" : undefined}
               onClick={closeMenu}
             >
-              {label}
+              {isArabic ? labelAr : labelEn}
             </a>
           );
         })}
         <div className="language-nav-item">
-          <span className="language" aria-label="English language selected">
-            <img src="/reference-assets/flag-en.png" alt="" />
-            <span>EN</span>
-          </span>
+          <div
+            className="language-switcher"
+            role="group"
+            aria-label={isArabic ? "اختيار اللغة" : "Choose language"}
+          >
+            <button
+              className={!isArabic ? "active" : ""}
+              type="button"
+              aria-pressed={!isArabic}
+              aria-label="English"
+              onClick={() => {
+                setLanguage("en");
+                closeMenu();
+              }}
+            >
+              EN
+            </button>
+            <button
+              className={isArabic ? "active" : ""}
+              type="button"
+              aria-pressed={isArabic}
+              aria-label="العربية"
+              onClick={() => {
+                setLanguage("ar");
+                closeMenu();
+              }}
+            >
+              AR
+            </button>
+          </div>
         </div>
-        <button
-          className="search-trigger"
-          type="button"
-          aria-label="Search"
-          aria-expanded={searchOpen}
-          onClick={() => setSearchOpen((value) => !value)}
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="10.8" cy="10.8" r="6.2" />
-            <path d="m15.4 15.4 4.5 4.5" />
-          </svg>
-        </button>
+        <div className={searchOpen ? "search-nav-item is-open" : "search-nav-item"}>
+          <button
+            className="search-trigger"
+            type="button"
+            aria-label={isArabic ? "البحث" : "Search"}
+            aria-expanded={searchOpen}
+            onClick={() => setSearchOpen((value) => !value)}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.8" cy="10.8" r="6.2" />
+              <path d="m15.4 15.4 4.5 4.5" />
+            </svg>
+          </button>
+          {searchOpen && (
+            <div className="site-search-panel">
+              <div className="site-search-inner">
+                <svg className="site-search-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="10.8" cy="10.8" r="6.2" />
+                  <path d="m15.4 15.4 4.5 4.5" />
+                </svg>
+                <input
+                  autoFocus
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder={
+                    isArabic
+                      ? "ابحث في الوظائف والأخبار ومجالات العمل"
+                      : "Search careers, news and practice areas"
+                  }
+                  aria-label={
+                    isArabic
+                      ? "ابحث في الوظائف والأخبار ومجالات العمل"
+                      : "Search careers, news and practice areas"
+                  }
+                />
+                <button
+                  type="button"
+                  onClick={() => setSearchOpen(false)}
+                  aria-label={isArabic ? "إغلاق البحث" : "Close search"}
+                >
+                  ×
+                </button>
+              </div>
+              <div className="site-search-results" aria-live="polite">
+                {!normalizedQuery && (
+                  <p>
+                    {isArabic
+                      ? "ابدأ الكتابة للبحث في الموقع."
+                      : "Start typing to search the website."}
+                  </p>
+                )}
+                {normalizedQuery && results.length === 0 && (
+                  <p>{isArabic ? "لا توجد نتائج." : "No results found."}</p>
+                )}
+                {results.map((result) => (
+                  <a key={`${result.type}-${result.href}`} href={result.href} onClick={closeMenu}>
+                    <span>{result.title}</span>
+                    <small>{result.type}</small>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
         <a
           className={location.pathname === "/appointments" ? "appointment active" : "appointment"}
           href="/appointments"
           aria-current={location.pathname === "/appointments" ? "page" : undefined}
           onClick={closeMenu}
         >
-          Appointment
+          {isArabic ? "حجز موعد" : "Appointment"}
         </a>
       </nav>
-      {searchOpen && (
-        <div className="site-search-panel">
-          <div className="site-search-inner">
-            <svg className="site-search-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="10.8" cy="10.8" r="6.2" />
-              <path d="m15.4 15.4 4.5 4.5" />
-            </svg>
-            <input
-              autoFocus
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search careers, news and practice areas"
-              aria-label="Search careers, news and practice areas"
-            />
-            <button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search">
-              ×
-            </button>
-          </div>
-          <div className="site-search-results" aria-live="polite">
-            {!normalizedQuery && <p>Start typing to search the website.</p>}
-            {normalizedQuery && results.length === 0 && <p>No results found.</p>}
-            {results.map((result) => (
-              <a key={`${result.type}-${result.href}`} href={result.href} onClick={closeMenu}>
-                <span>{result.title}</span>
-                <small>{result.type}</small>
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
     </header>
   );
 }

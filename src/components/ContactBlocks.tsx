@@ -38,7 +38,7 @@ export function OfficeMap() {
       <iframe
         title="MG Law Firm location"
         loading="lazy"
-        src="https://maps.google.com/maps?q=35B%20Mohamed%20Mazhar%20St.%2C%20Zamalek%2C%20Cairo&z=14&output=embed"
+        src="https://www.google.com/maps?cid=14159121067538588790&output=embed"
       />
     </div>
   );

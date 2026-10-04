@@ -99,7 +99,7 @@ export const SITE_DATA = {
       email: "info@gammallaw.com",
       hoursEn: "Sun - Thu: 9:00 am – 6:00 pm",
       hoursAr: "الأحد - الخميس: 9:00 ص – 6:00 م",
-      mapUrl: "https://maps.google.com/?q=35B+Mohamed+Mazhar+St+Zamalek+Cairo",
+      mapUrl: "https://www.google.com/maps?cid=14159121067538588790",
     },
     {
       nameEn: "Mohandesin Office",

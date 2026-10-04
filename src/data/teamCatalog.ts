@@ -17,12 +17,18 @@ export interface TeamMember {
   biography: string;
 }
 
+export interface TeamMemberTranslation {
+  name: string;
+  role: string;
+  biography: string;
+}
+
 const image = (name: string) => `/reference-assets/team/${name}`;
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "mohammed-elgammal",
-    name: "Mohammed El-Gammal",
+    name: "Mohamed El Gammal",
     role: "Founding and Managing Partner",
     group: "Founding and Managing Partner",
     image: image("mohammed-elgammal.jpg"),
@@ -42,7 +48,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     slug: "ahmed-fathy-elgammal",
-    name: "Ahmed Fathy El-Gammal",
+    name: "Ahmed El Gammal",
     role: "Partner - Head of Corporate and Contracts",
     group: "Partners",
     image: image("ahmed-fathy-elgammal.jpg"),
@@ -82,8 +88,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     slug: "tarek-yehia-fahmy-zakher",
-    name: "Tarek Yahia",
-    role: "Sr. Associate",
+    name: "Tarek Yehia",
+    role: "Senior Associate",
     group: "Litigation Team",
     image: image("tarek-yahia.jpg"),
     email: "info@gammallaw.com",
@@ -92,8 +98,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     slug: "hosseiny-ahmed-haiba",
-    name: "Hosseiny Ahmed",
-    role: "Sr. Associate",
+    name: "Husseiny Ahmed",
+    role: "Associate",
     group: "Litigation Team",
     image: image("hosseiny-ahmed.jpg"),
     email: "info@gammallaw.com",
@@ -103,7 +109,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "aly-younis",
     name: "Aly Younis",
-    role: "Sr. Associate",
+    role: "Associate",
     group: "Corporate Team",
     image: image("aly-younis.jpg"),
     email: "info@gammallaw.com",
@@ -113,7 +119,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "abdelrahman-mohamed",
     name: "Abdelrahman Mohamed",
-    role: "Sr. Associate",
+    role: "Associate",
     group: "Litigation Team",
     image: image("abdelrahman-mohamed.jpg"),
     email: "info@gammallaw.com",
@@ -132,8 +138,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     slug: "amr-elkhouly",
-    name: "Amr Elkhouly",
-    role: "Jr. Associate",
+    name: "Amr El Khouly",
+    role: "Associate",
     group: "Litigation Team",
     image: image("amr-elkhouly.jpg"),
     email: "info@gammallaw.com",
@@ -142,8 +148,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     slug: "mahmoud-shalaany",
-    name: "Mahmoud Shalaany",
-    role: "Jr. Associate",
+    name: "Mahmoud Shalakany",
+    role: "Associate",
     group: "Litigation Team",
     image: image("mahmoud-shalaany.jpg"),
     email: "info@gammallaw.com",
@@ -153,7 +159,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "kareem-ragab-2",
     name: "Kareem Ragab",
-    role: "Jr. Associate",
+    role: "Associate",
     group: "Corporate Team",
     image: image("kareem-ragab.jpg"),
     email: "info@gammallaw.com",
@@ -163,7 +169,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "ahmed-hany",
     name: "Ahmed Hany",
-    role: "Jr. Associate",
+    role: "Junior Associate",
     group: "Litigation Team",
     image: image("ahmed-hany.jpg"),
     email: "info@gammallaw.com",
@@ -173,7 +179,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "maryam-hamam",
     name: "Maryam Hammam",
-    role: "Jr. Associate",
+    role: "Associate",
     group: "Corporate Team",
     image: image("maryam-hammam.jpg"),
     email: "info@gammallaw.com",
@@ -183,7 +189,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "amina-agamy",
     name: "Amina Agamy",
-    role: "Jr. Associate",
+    role: "Associate",
     group: "Corporate Team",
     image: image("amina-agamy.jpg"),
     email: "info@gammallaw.com",
@@ -193,7 +199,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "menna-boudy",
     name: "Menna Boudy",
-    role: "Jr. Associate",
+    role: "Associate",
     group: "Corporate Team",
     image: image("menna-boudy.jpg"),
     email: "info@gammallaw.com",
@@ -203,7 +209,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     slug: "abdelrahman-salah",
     name: "Abdelrahman Salah",
-    role: "Jr. Associate",
+    role: "Junior Associate",
     group: "Litigation Team",
     image: image("abdelrahman-salah.jpg"),
     email: "info@gammallaw.com",
@@ -212,7 +218,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     slug: "zeina-hassanein",
-    name: "Zeina Hassanein",
+    name: "Zeina Ahmed",
     role: "Junior Associate",
     group: "Corporate Team",
     image: image("zeina-hassanein.jpg"),
@@ -231,6 +237,126 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Yara Moustafa is a 2024 law graduate from Cairo University, English Section, with a strong academic record and particular interest in corporate and commercial law. During an internship in the legal affairs department of a leading company, she gained hands-on experience in legal research, labor law, regulatory compliance, and drafting and translating legal documents. She has a solid foundation in company, commercial, and investment law and is developing her understanding of the business side of legal practice.",
   },
   {
+    slug: "walid-mabrouk",
+    name: "Walid Mabrouk",
+    role: "Of Counsel",
+    group: "Councels",
+    image: "",
+    email: "info@gammallaw.com",
+    biography:
+      "Walid Mabrouk serves as Of Counsel, providing strategic legal guidance and supporting the firm across complex client matters.",
+  },
+  {
+    slug: "abdelmoneim",
+    name: "Abdelmoneim",
+    role: "Of Counsel",
+    group: "Councels",
+    image: "",
+    email: "info@gammallaw.com",
+    biography:
+      "Abdelmoneim serves as Of Counsel, contributing experienced legal judgment and practical guidance to the firm and its clients.",
+  },
+  {
+    slug: "ali-ossama",
+    name: "Ali Ossama",
+    role: "Associate",
+    group: "Corporate Team",
+    image: "",
+    email: "info@gammallaw.com",
+    biography:
+      "Ali Ossama is an associate in the Corporate Team, supporting company matters, commercial transactions, legal research, and contract work.",
+  },
+  {
+    slug: "farida-essam",
+    name: "Farida Essam",
+    role: "Junior Associate",
+    group: "Corporate Team",
+    image: image("farida-essam.jpg"),
+    email: "info@gammallaw.com",
+    biography:
+      "Farida Essam is a junior associate in the Corporate Team, assisting with legal research, corporate procedures, agreements, and regulatory matters.",
+  },
+  {
+    slug: "jana-gawdat",
+    name: "Jana Gawdat",
+    role: "Junior Associate",
+    group: "Corporate Team",
+    image: image("jana-gawdat.jpg"),
+    email: "info@gammallaw.com",
+    biography:
+      "Jana Gawdat is a junior associate in the Corporate Team, supporting corporate transactions, contract review, research, and compliance work.",
+  },
+  {
+    slug: "nour-orabi",
+    name: "Nour Orabi",
+    role: "Junior Associate",
+    group: "Corporate Team",
+    image: "",
+    email: "info@gammallaw.com",
+    biography:
+      "Nour Orabi is a junior associate in the Corporate Team, assisting the firm's lawyers with commercial matters, legal drafting, and research.",
+  },
+  {
+    slug: "mohamed-khaled",
+    name: "Mohamed Khaled",
+    role: "Senior Associate",
+    group: "Litigation Team",
+    image: "",
+    email: "info@gammallaw.com",
+    biography:
+      "Mohamed Khaled is a senior associate in the Litigation Team, handling dispute analysis, court preparation, legal research, and client representation.",
+  },
+  {
+    slug: "donia-abuzed",
+    name: "Donia Abuzed",
+    role: "Associate",
+    group: "Litigation Team",
+    image: "",
+    email: "info@gammallaw.com",
+    biography:
+      "Donia Abuzed is an associate in the Litigation Team, supporting civil and commercial disputes, court procedures, and legal research.",
+  },
+  {
+    slug: "shaimaa",
+    name: "Shaimaa",
+    role: "Associate",
+    group: "Litigation Team",
+    image: "",
+    email: "info@gammallaw.com",
+    biography:
+      "Shaimaa is an associate in the Litigation Team, assisting with case preparation, procedural work, legal drafting, and dispute resolution.",
+  },
+  {
+    slug: "malak-hamzawy",
+    name: "Malak Hamzawy",
+    role: "Junior Associate",
+    group: "Litigation Team",
+    image: "",
+    email: "info@gammallaw.com",
+    biography:
+      "Malak Hamzawy is a junior associate in the Litigation Team, supporting court matters, legal research, drafting, and case administration.",
+  },
+  {
+    slug: "ahmed-saeed",
+    name: "Ahmed Saeed",
+    role: "Junior Associate",
+    group: "Litigation Team",
+    image: "",
+    email: "info@gammallaw.com",
+    biography:
+      "Ahmed Saeed is a junior associate in the Litigation Team, assisting with legal research, litigation files, court procedures, and drafting.",
+  },
+  {
+    slug: "ziad-mohamed",
+    name: "Ziad Mohamed",
+    role: "Junior Associate",
+    group: "Litigation Team",
+    image: "",
+    email: "info@gammallaw.com",
+    biography:
+      "Ziad Mohamed is a junior associate in the Litigation Team, supporting dispute work, legal research, document preparation, and court administration.",
+  },
+  {
     slug: "hend-sherif",
     name: "Hend Zain",
     role: "Admin Manager",
@@ -242,6 +368,213 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
 ];
 
+export const TEAM_TRANSLATIONS_AR: Record<string, TeamMemberTranslation> = {
+  "mohammed-elgammal": {
+    name: "د. محمد الجمال",
+    role: "الشريك المؤسس والمدير",
+    biography:
+      "الدكتور محمد الجمال محامٍ متمرس يتمتع بخبرة تزيد على عشرين عاماً. حصل على ليسانس الحقوق من جامعة القاهرة، ثم ماجستير في القانون العام ودكتوراه في القانون من جامعة طنطا. مثّل موكليه بكفاءة في قضايا بارزة، وأسهمت رؤيته الاستراتيجية وخبرته القانونية في نمو مكتب إم جي للمحاماة. وهو مقيد أمام محكمة النقض والمحكمة الإدارية العليا والمحكمة الدستورية العليا، وعضو بنقابة المحامين منذ عام 1996، كما أنه مقيد بسجل وكلاء براءات الاختراع والعلامات التجارية.",
+  },
+  "mohamed-fathy": {
+    name: "محمد فتحي",
+    role: "شريك ورئيس قسم التقاضي والعقارات",
+    biography:
+      "الأستاذ محمد فتحي محامٍ ذو خبرة واسعة في قانون الشركات والمسائل العقارية وإجراءات التوثيق. حصل على ليسانس الحقوق من جامعة القاهرة ويمارس المحاماة منذ عام 2002. يتميز بخبرة قوية في التفاوض وصياغة العقود المدنية والتجارية وإدارة المعاملات المعقدة، ويقدم حلولاً عملية تساعد الموكلين على تحقيق أهدافهم وتجاوز العقبات القانونية.",
+  },
+  "ahmed-fathy-elgammal": {
+    name: "أحمد فتحي الجمال",
+    role: "شريك ورئيس قسم الشركات والعقود",
+    biography:
+      "الأستاذ أحمد فتحي الجمال محامٍ يجمع بين التميز الأكاديمي والخبرة العملية، وهو خريج قسم اللغة الإنجليزية بكلية الحقوق بجامعة القاهرة ويمارس المحاماة منذ عام 2009. تشمل خبرته صياغة العقود والاندماج والاستحواذ والفحص النافي للجهالة والامتثال، إلى جانب قانون العمل والملكية الفكرية. كما سبق له العمل في مجال التعليم والتدريب القانوني، بما يعزز قدرته على تقديم مشورة دقيقة وفعالة.",
+  },
+  "alaa-mandour": {
+    name: "علاء مندور",
+    role: "مستشار قانوني",
+    biography:
+      "الأستاذ علاء مندور محامٍ مخضرم يتمتع بأكثر من ثلاثين عاماً من الخبرة القانونية، وحاصل على ليسانس الحقوق من جامعة القاهرة. ترافع بنجاح في العديد من القضايا المدنية والإدارية والجنائية أمام مختلف درجات المحاكم، بما فيها المحكمة الإدارية العليا ومحكمة النقض. وهو عضو بنقابة المحامين منذ عام 1992 ومقيد أمام محكمة النقض.",
+  },
+  "mahmoud-salah-el-din-el-sayed": {
+    name: "محمود صلاح الدين السيد",
+    role: "محامٍ أول",
+    biography:
+      "محمود صلاح الدين السيد متخصص في القانون المدني والتجاري وقانون العمل، ويتمتع بخبرة في صياغة العقود والبحوث القانونية وقضايا الجنح. حصل على ليسانس الحقوق من جامعة القاهرة عام 2017، وانضم إلى مكتب الدكتور محمد الجمال في يونيو 2023 لتقديم حلول قانونية مصممة وفق احتياجات الموكلين. يتحدث العربية والإنجليزية.",
+  },
+  "mohamed-marzouk": {
+    name: "محمد مرزوق",
+    role: "محامٍ مدير – التقاضي",
+    biography:
+      "الأستاذ محمد مرزوق محامٍ متخصص في التقاضي والعقارات وإجراءات التوثيق، وحاصل على ليسانس الحقوق من جامعة الأزهر. يمارس المحاماة منذ عام 2018 ويتمتع بخبرة في المنازعات المدنية والتجارية والعمالية ومنازعات الشركات. كما يمتلك سجلاً متميزاً في التعامل مع القضايا العقارية المعقدة والجهات المختصة بالإسكان والمرافق والتنمية العمرانية.",
+  },
+  "tarek-yehia-fahmy-zakher": {
+    name: "طارق يحيى فهمي",
+    role: "محامٍ أول",
+    biography:
+      "طارق يحيى محامٍ متخصص في التقاضي والعقارات، ويتمتع بخبرة في القانون المدني والعمالي والتجاري والجنائي وصياغة العقود وتسوية المنازعات. حصل على ليسانس الحقوق من جامعة القاهرة عام 2021 بعد دراسته السابقة بقسم اللغة الإنجليزية في كلية الآداب. يعتمد نهجاً دقيقاً لتقديم حلول قانونية متكاملة للموكلين في مختلف القطاعات.",
+  },
+  "hosseiny-ahmed-haiba": {
+    name: "الحسيني أحمد هيبة",
+    role: "محامٍ مشارك",
+    biography:
+      "الحسيني أحمد محامٍ متخصص في التقاضي المدني والتجاري والجنائي والعمالي والعقاري ومنازعات الشركات. حصل على بكالوريوس الشريعة والقانون من جامعة الأزهر عام 2020 بتقدير امتياز، ثم ماجستير في القانون الخاص والتجارة الدولية من جامعة عين شمس عام 2023. يتميز بصياغة ومراجعة العقود وصحف الدعاوى ومذكرات الدفاع وتحليل القضايا.",
+  },
+  "aly-younis": {
+    name: "علي يونس",
+    role: "محامٍ أول",
+    biography:
+      "يعمل علي يونس بقسم الشركات والعقود في مكتب إم جي منذ يناير 2024، بعد حصوله على خبرة عملية في عدد من مكاتب المحاماة المرموقة. تشمل ممارسته صياغة الاتفاقيات والبحوث والآراء القانونية وتأسيس الشركات وتصفيتها وإعادة هيكلتها والامتثال والفحص النافي للجهالة. وهو حاصل على ليسانس الحقوق باللغة الإنجليزية من جامعة عين شمس ويتحدث العربية والإنجليزية.",
+  },
+  "abdelrahman-mohamed": {
+    name: "عبد الرحمن محمد",
+    role: "محامٍ مشارك",
+    biography:
+      "يتخصص عبد الرحمن محمد في التقاضي أمام المحاكم الجزئية والابتدائية ومحاكم الاستئناف العالي، مع تركيز خاص على المنازعات الجنائية والمدنية والعمالية. يقدم الاستشارات القانونية ويحضر الجلسات ويتولى الأعمال الإدارية القانونية. كما يتمتع بخبرة في التسجيل العقاري وصياغة العقود وإعداد صحف الدعاوى ومذكرات الدفاع.",
+  },
+  "rehab-sultan": {
+    name: "رحاب سلطان",
+    role: "محامية مديرة – التقاضي والملكية الفكرية",
+    biography:
+      "تعمل رحاب سلطان في قسمي الاستشارات القانونية والملكية الفكرية بمكتب إم جي منذ فبراير 2024. تشمل خبرتها إدارة إجراءات المحاكم وصياغة العقود والبحوث والآراء القانونية وتسجيل العلامات التجارية وأوامر وقف التعدي والقضايا الاقتصادية والأعمال التنظيمية. وهي حاصلة على ليسانس الحقوق وماجستير في القانون الخاص من جامعة عين شمس وماجستير في القانون العام من جامعة أسيوط.",
+  },
+  "amr-elkhouly": {
+    name: "عمرو الخولي",
+    role: "محامٍ مشارك",
+    biography:
+      "تخرج عمرو الخولي في كلية الحقوق بجامعة القاهرة عام 2020، ويتمتع بخبرة في التقاضي أمام المحاكم الجزئية والابتدائية والاستئنافية. يركز على المنازعات العمالية، بما فيها الفصل التعسفي والأجور والتأمينات الاجتماعية، كما تشمل خبرته التقاضي المدني والجنائي والبحوث القانونية وصياغة العقود والمذكرات وصحف الدعاوى.",
+  },
+  "mahmoud-shalaany": {
+    name: "محمود الشلعاني",
+    role: "محامٍ مشارك",
+    biography:
+      "تخرج محمود الشلعاني في كلية الحقوق بجامعة حلوان عام 2018، ولديه خبرة واسعة في التقاضي أمام المحاكم الجنائية والابتدائية والجزئية والاستئنافية ومجلس الدولة. يتميز في القضايا الجنائية وتحقيقات النيابة والتعويضات ومنازعات الأسرة والدعاوى المدنية والعمالية، إلى جانب البحوث وصياغة العقود والمذكرات القانونية.",
+  },
+  "kareem-ragab-2": {
+    name: "كريم رجب",
+    role: "محامٍ مشارك",
+    biography:
+      "كريم رجب محامٍ متخصص في القانون التجاري والمدني مع تركيز على قطاع الصناعات الدوائية، وتخرج في جامعة حلوان عام 2023. يقدم المشورة للشركات الدوائية بشأن الامتثال التنظيمي والتفاوض على العقود وتسوية المنازعات، ويطور حلولاً قانونية فعالة تناسب التحديات الخاصة بالقطاع. يتحدث العربية والإنجليزية.",
+  },
+  "ahmed-hany": {
+    name: "أحمد هاني",
+    role: "محامٍ مساعد",
+    biography:
+      "أحمد هاني خريج كلية الحقوق بجامعة القاهرة دفعة 2022، ويواصل حالياً دراسة الماجستير بعد حصوله على دبلوم القانون الخاص من جامعة السادات. يتدرب ويعمل منذ عام 2023 في مكتب الدكتور محمد الجمال عبر مجالات العلامات التجارية وقانون العمل والتسجيل العقاري والتقاضي.",
+  },
+  "maryam-hamam": {
+    name: "مريم همام",
+    role: "محامية مشاركة",
+    biography:
+      "مريم همام مستشارة قانونية تتمتع بخبرة في صياغة العقود وقانون الشركات والبحوث القانونية والامتثال التنظيمي. حصلت على ليسانس الحقوق باللغة الإنجليزية من جامعة عين شمس، وتشارك في المعاملات المؤسسية وتأسيس الشركات ومراجعة الاتفاقيات والالتزام بأطر الهيئة العامة للاستثمار والبورصة المصرية. تتحدث العربية والإنجليزية.",
+  },
+  "amina-agamy": {
+    name: "أمينة العجمي",
+    role: "محامية مشاركة",
+    biography:
+      "أمينة العجمي محامية متخصصة في قانون الشركات والعقارات والقانون المدني والعمالي والتحكيم. حصلت على ليسانس الحقوق باللغة الإنجليزية من جامعة القاهرة، وشاركت خلال دراستها في الأنشطة القانونية والمحاكمات الصورية ودورات القانون الدولي. تركز ممارستها المهنية على صياغة العقود ومراجعتها وتقديم المشورة القانونية.",
+  },
+  "menna-boudy": {
+    name: "منة بودي",
+    role: "محامية مشاركة",
+    biography:
+      "منة بودي محامية شركات متخصصة في الجمعيات العامة العادية وغير العادية وحوكمة الشركات وإجراءات مجالس الإدارة والامتثال. تخرجت في قسم اللغة الإنجليزية بكلية الحقوق بجامعة القاهرة عام 2022، وتقدم منذ انضمامها إلى مكتب الدكتور محمد الجمال دعماً قانونياً يساعد الشركات على إدارة أعمالها بكفاءة والالتزام بالمتطلبات التنظيمية. تتحدث العربية والإنجليزية والألمانية.",
+  },
+  "abdelrahman-salah": {
+    name: "عبد الرحمن صلاح",
+    role: "محامٍ مساعد",
+    biography:
+      "عبد الرحمن صلاح خريج القسم الإنجليزي بكلية الحقوق بجامعة عين شمس ويعمل محامياً مساعداً في مكتب إم جي. اكتسب خبرة عملية لدى جهاز مستقبل مصر للتنمية المستدامة في صياغة العقود ومراجعتها للتأكد من دقتها ووضوحها. يهتم بقانون الشركات ويتمتع بمهارات قوية في الصياغة والبحث القانوني.",
+  },
+  "zeina-hassanein": {
+    name: "زينة أحمد",
+    role: "محامية مساعدة",
+    biography:
+      "تستكمل زينة حسنين عامها الرابع في كلية الحقوق بجامعة القاهرة والعام الأول من برنامج الماجستير بجامعة باريس الأولى بانتيون–سوربون. شمل تدريبها قانون الشركات والاندماج والاستحواذ والتحكيم الرياضي والطيران والعمل والملكية الفكرية والتكنولوجيا المالية والأسواق المصرفية. تتحدث العربية والإنجليزية والفرنسية وتهتم بالتقاطع بين القانون والأعمال والتكنولوجيا.",
+  },
+  "yara-mostafa": {
+    name: "يارا مصطفى",
+    role: "محامية مساعدة",
+    biography:
+      "يارا مصطفى خريجة القسم الإنجليزي بكلية الحقوق بجامعة القاهرة دفعة 2024، ولديها اهتمام خاص بقانون الشركات والقانون التجاري. اكتسبت خبرة عملية في البحوث القانونية وقانون العمل والامتثال وصياغة المستندات القانونية وترجمتها. تمتلك أساساً قوياً في قوانين الشركات والتجارة والاستثمار وتواصل تطوير فهمها للجوانب التجارية للممارسة القانونية.",
+  },
+  "walid-mabrouk": {
+    name: "وليد مبروك",
+    role: "مستشار قانوني",
+    biography:
+      "يعمل وليد مبروك مستشاراً قانونياً للمكتب، ويقدم توجيهاً استراتيجياً وخبرة عملية في المسائل القانونية المعقدة.",
+  },
+  abdelmoneim: {
+    name: "عبد المنعم",
+    role: "مستشار قانوني",
+    biography:
+      "يعمل عبد المنعم مستشاراً قانونياً ويسهم بخبرته ورؤيته العملية في دعم المكتب وموكليه في مختلف المسائل القانونية.",
+  },
+  "ali-ossama": {
+    name: "علي أسامة",
+    role: "محامٍ مشارك",
+    biography:
+      "علي أسامة محامٍ مشارك ضمن فريق الشركات، ويدعم أعمال الشركات والمعاملات التجارية والبحوث القانونية وصياغة العقود.",
+  },
+  "farida-essam": {
+    name: "فريدة عصام",
+    role: "محامية مساعدة",
+    biography:
+      "فريدة عصام محامية مساعدة ضمن فريق الشركات، وتشارك في البحوث القانونية وإجراءات الشركات والاتفاقيات والمسائل التنظيمية.",
+  },
+  "jana-gawdat": {
+    name: "جنى جودت",
+    role: "محامية مساعدة",
+    biography:
+      "جنى جودت محامية مساعدة ضمن فريق الشركات، وتدعم معاملات الشركات ومراجعة العقود والبحوث وأعمال الامتثال.",
+  },
+  "nour-orabi": {
+    name: "نور عرابي",
+    role: "محامية مساعدة",
+    biography:
+      "نور عرابي محامية مساعدة ضمن فريق الشركات، وتساعد في المسائل التجارية والصياغة القانونية والبحوث.",
+  },
+  "mohamed-khaled": {
+    name: "محمد خالد",
+    role: "محامٍ أول",
+    biography:
+      "محمد خالد محامٍ أول ضمن فريق التقاضي، ويتولى تحليل المنازعات وإعداد القضايا والبحوث القانونية وتمثيل الموكلين.",
+  },
+  "donia-abuzed": {
+    name: "دنيا أبو زيد",
+    role: "محامية مشاركة",
+    biography:
+      "دنيا أبو زيد محامية مشاركة ضمن فريق التقاضي، وتدعم المنازعات المدنية والتجارية وإجراءات المحاكم والبحوث القانونية.",
+  },
+  shaimaa: {
+    name: "شيماء",
+    role: "محامية مشاركة",
+    biography:
+      "شيماء محامية مشاركة ضمن فريق التقاضي، وتشارك في إعداد القضايا والإجراءات والصياغة القانونية وتسوية المنازعات.",
+  },
+  "malak-hamzawy": {
+    name: "ملك حمزاوي",
+    role: "محامية مساعدة",
+    biography:
+      "ملك حمزاوي محامية مساعدة ضمن فريق التقاضي، وتدعم أعمال المحاكم والبحوث والصياغة وإدارة ملفات القضايا.",
+  },
+  "ahmed-saeed": {
+    name: "أحمد سعيد",
+    role: "محامٍ مساعد",
+    biography:
+      "أحمد سعيد محامٍ مساعد ضمن فريق التقاضي، ويسهم في البحوث القانونية وملفات الدعاوى وإجراءات المحاكم والصياغة.",
+  },
+  "ziad-mohamed": {
+    name: "زياد محمد",
+    role: "محامٍ مساعد",
+    biography:
+      "زياد محمد محامٍ مساعد ضمن فريق التقاضي، ويدعم أعمال المنازعات والبحوث وإعداد المستندات والإجراءات القضائية.",
+  },
+  "hend-sherif": {
+    name: "هند زين",
+    role: "مديرة الشؤون الإدارية",
+    biography:
+      "هند زين خبيرة إدارية تتمتع بسجل متميز في إدارة المكاتب والمساندة التنفيذية. بدأت مسيرتها في كلية هارفست البريطانية عام 2017 وتدرجت إلى منصب مديرة فرع، ثم انضمت إلى برايم القابضة وتولت إدارة مكتب الرئيس التنفيذي. وتشغل منصب مديرة الشؤون الإدارية في مكتب إم جي منذ ديسمبر 2024.",
+  },
+};
+
 export const TEAM_GROUPS: TeamGroup[] = [
   "Founding and Managing Partner",
   "Partners",
@@ -250,3 +583,38 @@ export const TEAM_GROUPS: TeamGroup[] = [
   "Corporate Team",
   "Litigation Team",
 ];
+
+export const TEAM_DIRECTORY_ORDER: Partial<Record<TeamGroup, string[]>> = {
+  "Founding and Managing Partner": ["mohammed-elgammal"],
+  Partners: ["mohamed-fathy", "ahmed-fathy-elgammal"],
+  Councels: ["walid-mabrouk", "abdelmoneim", "alaa-mandour"],
+  "Managing Associates": ["mohamed-marzouk", "rehab-sultan"],
+  "Corporate Team": [
+    "amina-agamy",
+    "ali-ossama",
+    "menna-boudy",
+    "kareem-ragab-2",
+    "maryam-hamam",
+    "zeina-hassanein",
+    "yara-mostafa",
+    "farida-essam",
+    "jana-gawdat",
+    "nour-orabi",
+  ],
+  "Litigation Team": [
+    "mahmoud-salah-el-din-el-sayed",
+    "tarek-yehia-fahmy-zakher",
+    "mohamed-khaled",
+    "hosseiny-ahmed-haiba",
+    "amr-elkhouly",
+    "donia-abuzed",
+    "abdelrahman-mohamed",
+    "shaimaa",
+    "mahmoud-shalaany",
+    "abdelrahman-salah",
+    "ahmed-hany",
+    "malak-hamzawy",
+    "ahmed-saeed",
+    "ziad-mohamed",
+  ],
+};

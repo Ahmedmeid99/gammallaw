@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 type SocialNetwork = "facebook" | "linkedin" | "instagram";
 
@@ -62,6 +63,7 @@ function ContactIcon({ type }: { type: "pin" | "phone" | "mail" | "clock" }) {
 
 export function SiteFooter() {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const { isArabic } = useLanguage();
 
   useEffect(() => {
     const syncBackToTop = () => setShowBackToTop(window.scrollY > 520);
@@ -77,30 +79,40 @@ export function SiteFooter() {
           <div className="footer-intro">
             <img src="/reference-assets/logo.png" alt="MG Law Firm" />
             <div className="footer-brand-copy">
-              <span>MG LAW FIRM</span>
-              <h2>Comprehensive Legal Services Across Our Offices</h2>
+              <span>{isArabic ? "مكتب إم جي للمحاماة" : "MG LAW FIRM"}</span>
+              <h2>
+                {isArabic
+                  ? "خدمات قانونية متكاملة عبر مكاتبنا"
+                  : "Comprehensive Legal Services Across Our Offices"}
+              </h2>
               <p>
-                Strategic legal counsel built on integrity, precision, and more than 25 years of
-                trusted experience.
+                {isArabic
+                  ? "استشارات قانونية استراتيجية ترتكز على النزاهة والدقة وخبرة موثوقة تمتد لأكثر من 25 عاماً."
+                  : "Strategic legal counsel built on integrity, precision, and more than 25 years of trusted experience."}
               </p>
               <a className="footer-cta" href="/appointments">
-                Book a consultation <span aria-hidden="true">→</span>
+                {isArabic ? "احجز استشارة" : "Book a consultation"}{" "}
+                <span aria-hidden="true">{isArabic ? "←" : "→"}</span>
               </a>
             </div>
           </div>
 
-          <div className="footer-branches" aria-label="Our offices">
+          <div className="footer-branches" aria-label={isArabic ? "مكاتبنا" : "Our offices"}>
             <article className="footer-office-card">
               <div className="footer-office-title">
                 <span className="footer-office-icon">
                   <ContactIcon type="pin" />
                 </span>
                 <div>
-                  <small>Zamalek, Cairo</small>
-                  <h3>Mazhar Office</h3>
+                  <small>{isArabic ? "الزمالك، القاهرة" : "Zamalek, Cairo"}</small>
+                  <h3>{isArabic ? "مكتب مظهر" : "Mazhar Office"}</h3>
                 </div>
               </div>
-              <address>35B Mohamed Mazhar St., Zamalek, Cairo</address>
+              <address>
+                {isArabic
+                  ? "35 ب شارع محمد مظهر، الزمالك، القاهرة"
+                  : "35B Mohamed Mazhar St., Zamalek, Cairo"}
+              </address>
               <div className="footer-contact-line">
                 <ContactIcon type="phone" />
                 <a href="tel:+20227353328">+202-27353328</a>
@@ -111,7 +123,7 @@ export function SiteFooter() {
               </div>
               <div className="footer-contact-line">
                 <ContactIcon type="clock" />
-                <span>Sun–Thu · 9:00 am–6:00 pm</span>
+                <span>{isArabic ? "الأحد–الخميس · 9 ص–6 م" : "Sun–Thu · 9:00 am–6:00 pm"}</span>
               </div>
             </article>
 
@@ -121,11 +133,15 @@ export function SiteFooter() {
                   <ContactIcon type="pin" />
                 </span>
                 <div>
-                  <small>Mohandesin, Giza</small>
-                  <h3>Mohandesin Office</h3>
+                  <small>{isArabic ? "المهندسين، الجيزة" : "Mohandesin, Giza"}</small>
+                  <h3>{isArabic ? "مكتب المهندسين" : "Mohandesin Office"}</h3>
                 </div>
               </div>
-              <address>54 Lebanon Street, Mohandesin, Giza</address>
+              <address>
+                {isArabic
+                  ? "54 شارع لبنان، المهندسين، الجيزة"
+                  : "54 Lebanon Street, Mohandesin, Giza"}
+              </address>
               <div className="footer-contact-line">
                 <ContactIcon type="phone" />
                 <a href="tel:+20233443648">+02-33443648</a>
@@ -136,14 +152,14 @@ export function SiteFooter() {
               </div>
               <div className="footer-contact-line">
                 <ContactIcon type="clock" />
-                <span>Sun–Thu · 9:00 am–6:00 pm</span>
+                <span>{isArabic ? "الأحد–الخميس · 9 ص–6 م" : "Sun–Thu · 9:00 am–6:00 pm"}</span>
               </div>
             </article>
           </div>
 
           <div className="footer-lower">
             <div className="footer-follow">
-              <span>Follow Us</span>
+              <span>{isArabic ? "تابعنا" : "Follow Us"}</span>
               <div className="footer-social-links">
                 <a href="https://facebook.com/profile.php?id=61576418064605" aria-label="Facebook">
                   <SocialIcon network="facebook" />
@@ -157,27 +173,38 @@ export function SiteFooter() {
               </div>
             </div>
             <div className="footer-navigation">
-              <span>Explore</span>
-              <nav className="footer-nav" aria-label="Footer navigation">
-                <a href="/about">About</a>
-                <a href="/practice-areas">Practice Areas</a>
-                <a href="/our-team">Our Team</a>
-                <a href="/careers">Careers</a>
-                <a href="/news">News</a>
-                <a href="/contact-us">Contact Us</a>
+              <span>{isArabic ? "استكشف" : "Explore"}</span>
+              <nav
+                className="footer-nav"
+                aria-label={isArabic ? "روابط التذييل" : "Footer navigation"}
+              >
+                <a href="/about">{isArabic ? "عن المكتب" : "About"}</a>
+                <a href="/practice-areas">{isArabic ? "مجالات العمل" : "Practice Areas"}</a>
+                <a href="/our-team">{isArabic ? "فريق العمل" : "Our Team"}</a>
+                <a href="/careers">{isArabic ? "الوظائف" : "Careers"}</a>
+                <a href="/news">{isArabic ? "الأخبار" : "News"}</a>
+                <a href="/contact-us">{isArabic ? "اتصل بنا" : "Contact Us"}</a>
               </nav>
             </div>
           </div>
         </div>
         <div className="copyright">
-          <span>El Gammal © 2026. All rights reserved.</span>
-          <span>Strategic counsel. Enduring partnerships.</span>
+          <span>
+            {isArabic
+              ? "الجمال © 2026. جميع الحقوق محفوظة."
+              : "El Gammal © 2026. All rights reserved."}
+          </span>
+          <span>
+            {isArabic
+              ? "استشارة استراتيجية. شراكات مستدامة."
+              : "Strategic counsel. Enduring partnerships."}
+          </span>
         </div>
       </footer>
       <button
         className={showBackToTop ? "back-to-top is-visible" : "back-to-top"}
         type="button"
-        aria-label="Scroll to top"
+        aria-label={isArabic ? "العودة إلى أعلى الصفحة" : "Scroll to top"}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true">

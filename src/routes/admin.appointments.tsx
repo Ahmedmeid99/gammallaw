@@ -10,7 +10,12 @@ import {
 
 export const Route = createFileRoute("/admin/appointments")({
   component: AppointmentAdminPage,
-  head: () => ({ meta: [{ title: "Appointment Requests | MG LAW" }] }),
+  head: () => ({
+    meta: [
+      { title: "Appointment Requests | MG LAW" },
+      { name: "robots", content: "noindex, nofollow, noarchive" },
+    ],
+  }),
 });
 
 function AppointmentAdminPage() {

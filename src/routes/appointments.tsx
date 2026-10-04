@@ -3,19 +3,24 @@ import { useMemo, useState } from "react";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteHeader } from "../components/SiteHeader";
 import { PRACTICE_CATALOG } from "../data/practiceCatalog";
+import { useLanguage } from "../i18n/LanguageContext";
 import { createAppointment } from "../server/appointments";
+import { breadcrumbJsonLd, createSeoHead } from "../lib/seo";
 
 export const Route = createFileRoute("/appointments")({
   component: AppointmentsPage,
-  head: () => ({
-    meta: [
-      { title: "Appointments | MG LAW" },
-      {
-        name: "description",
-        content: "Request a confidential legal consultation with MG Law Firm in Cairo.",
-      },
-    ],
-  }),
+  head: () =>
+    createSeoHead({
+      title: "Book a Legal Consultation in Cairo | MG Law Firm",
+      description:
+        "Request a confidential appointment with an MG Law Firm lawyer for corporate, litigation, contracts, labour, intellectual property, real estate, or residency advice.",
+      path: "/appointments",
+      keywords: ["book lawyer Cairo", "legal consultation appointment Egypt"],
+      jsonLd: breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Appointments", path: "/appointments" },
+      ]),
+    }),
 });
 
 const TIME_SLOTS = ["09:00", "10:30", "12:00", "13:30", "15:00", "16:30"];
@@ -35,6 +40,7 @@ const isBookable = (date: Date) => {
 };
 
 function AppointmentsPage() {
+  const { isArabic } = useLanguage();
   const now = new Date();
   const [calendarMonth, setCalendarMonth] = useState(
     () => new Date(now.getFullYear(), now.getMonth(), 1),
@@ -72,7 +78,9 @@ function AppointmentsPage() {
     event.preventDefault();
     setSubmissionError("");
     if (!selectedDate) {
-      setSubmissionError("Select an available date from the calendar.");
+      setSubmissionError(
+        isArabic ? "اختر تاريخاً متاحاً من التقويم." : "Select an available date from the calendar.",
+      );
       return;
     }
 
@@ -81,7 +89,13 @@ function AppointmentsPage() {
       const result = await createAppointment({ data: { ...form, date: selectedDate } });
       setReference(result.reference);
     } catch (error) {
-      setSubmissionError(error instanceof Error ? error.message : "Unable to submit your request.");
+      setSubmissionError(
+        error instanceof Error
+          ? error.message
+          : isArabic
+            ? "تعذر إرسال طلبك."
+            : "Unable to submit your request.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -93,31 +107,39 @@ function AppointmentsPage() {
       <main>
         <section className="appointment-title-hero" aria-labelledby="appointment-title">
           <div className="appointment-title-inner">
-            <h1 id="appointment-title">Appointments</h1>
-            <div className="breadcrumbs" aria-label="Breadcrumb">
-              <a href="/">Home</a>
+            <h1 id="appointment-title">{isArabic ? "حجز موعد" : "Appointments"}</h1>
+            <div className="breadcrumbs" aria-label={isArabic ? "مسار الصفحة" : "Breadcrumb"}>
+              <a href="/">{isArabic ? "الرئيسية" : "Home"}</a>
               <span aria-hidden="true">›</span>
-              <strong>Appointments</strong>
+              <strong>{isArabic ? "حجز موعد" : "Appointments"}</strong>
             </div>
           </div>
         </section>
 
         <section className="appointment-booking" aria-labelledby="booking-title">
           <div className="appointment-intro">
-            <p className="eyebrow">Confidential legal consultation</p>
-            <h2 id="booking-title">Choose a suitable appointment</h2>
+            <p className="eyebrow">
+              {isArabic ? "استشارة قانونية سرية" : "Confidential legal consultation"}
+            </p>
+            <h2 id="booking-title">
+              {isArabic ? "اختر موعداً مناسباً" : "Choose a suitable appointment"}
+            </h2>
             <p>
-              Select an available Sunday–Thursday date, then send your details. Our office will
-              review the request before it is confirmed.
+              {isArabic
+                ? "اختر موعداً متاحاً من الأحد إلى الخميس ثم أرسل بياناتك. سيراجع المكتب الطلب قبل تأكيده."
+                : "Select an available Sunday–Thursday date, then send your details. Our office will review the request before it is confirmed."}
             </p>
           </div>
 
           <div className="appointment-layout">
-            <div className="appointment-calendar" aria-label="Appointment calendar">
+            <div
+              className="appointment-calendar"
+              aria-label={isArabic ? "تقويم المواعيد" : "Appointment calendar"}
+            >
               <div className="calendar-toolbar">
                 <button
                   type="button"
-                  aria-label="Previous month"
+                  aria-label={isArabic ? "الشهر السابق" : "Previous month"}
                   onClick={() =>
                     setCalendarMonth(
                       new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1),
@@ -127,14 +149,14 @@ function AppointmentsPage() {
                   ‹
                 </button>
                 <strong>
-                  {calendarMonth.toLocaleDateString("en-GB", {
+                  {calendarMonth.toLocaleDateString(isArabic ? "ar-EG" : "en-GB", {
                     month: "long",
                     year: "numeric",
                   })}
                 </strong>
                 <button
                   type="button"
-                  aria-label="Next month"
+                  aria-label={isArabic ? "الشهر التالي" : "Next month"}
                   onClick={() =>
                     setCalendarMonth(
                       new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1),
@@ -145,8 +167,10 @@ function AppointmentsPage() {
                 </button>
               </div>
               <div className="calendar-weekdays" aria-hidden="true">
-                {WEEKDAYS.map((day) => (
-                  <span key={day}>{day}</span>
+                {WEEKDAYS.map((day, index) => (
+                  <span key={day}>
+                    {isArabic ? ["أحد", "إثن", "ثلا", "أرب", "خمي", "جمع", "سبت"][index] : day}
+                  </span>
                 ))}
               </div>
               <div className="calendar-grid">
@@ -162,7 +186,7 @@ function AppointmentsPage() {
                         selectedDate === value ? "selected" : ""
                       }`}
                       disabled={!available}
-                      aria-label={date.toLocaleDateString("en-GB", {
+                      aria-label={date.toLocaleDateString(isArabic ? "ar-EG" : "en-GB", {
                         weekday: "long",
                         day: "numeric",
                         month: "long",
@@ -177,7 +201,10 @@ function AppointmentsPage() {
                 })}
               </div>
               <p className="calendar-note">
-                <span /> Available dates · Fridays and Saturdays are closed
+                <span />
+                {isArabic
+                  ? "المواعيد المتاحة · الجمعة والسبت عطلة"
+                  : "Available dates · Fridays and Saturdays are closed"}
               </p>
             </div>
 
@@ -185,32 +212,38 @@ function AppointmentsPage() {
               {reference ? (
                 <div className="appointment-success" role="status">
                   <span className="success-icon">✓</span>
-                  <p className="eyebrow">Request received</p>
-                  <h2>Thank you, {form.name}</h2>
+                  <p className="eyebrow">{isArabic ? "تم استلام الطلب" : "Request received"}</p>
+                  <h2>{isArabic ? `شكراً، ${form.name}` : `Thank you, ${form.name}`}</h2>
                   <p>
-                    Your appointment request has been received. Our team will review your preferred
-                    date and contact you by phone or email to confirm the appointment.
+                    {isArabic
+                      ? "تم استلام طلب الموعد. سيراجع فريقنا التاريخ المفضل ويتواصل معك هاتفياً أو عبر البريد الإلكتروني لتأكيد الموعد."
+                      : "Your appointment request has been received. Our team will review your preferred date and contact you by phone or email to confirm the appointment."}
                   </p>
                   <button type="button" onClick={() => setReference("")}>
-                    Submit another request
+                    {isArabic ? "إرسال طلب آخر" : "Submit another request"}
                   </button>
                 </div>
               ) : (
                 <form onSubmit={submitAppointment}>
-                  <h2>Request an appointment</h2>
+                  <h2>{isArabic ? "طلب موعد" : "Request an appointment"}</h2>
                   <p className="selected-date-copy">
                     {selectedDate
-                      ? new Date(`${selectedDate}T12:00:00`).toLocaleDateString("en-GB", {
-                          weekday: "long",
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        })
-                      : "Choose a date from the calendar"}
+                      ? new Date(`${selectedDate}T12:00:00`).toLocaleDateString(
+                          isArabic ? "ar-EG" : "en-GB",
+                          {
+                            weekday: "long",
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          },
+                        )
+                      : isArabic
+                        ? "اختر تاريخاً من التقويم"
+                        : "Choose a date from the calendar"}
                   </p>
                   <div className="appointment-fields two-columns">
                     <label>
-                      <span>Full name *</span>
+                      <span>{isArabic ? "الاسم الكامل *" : "Full name *"}</span>
                       <input
                         required
                         value={form.name}
@@ -219,7 +252,7 @@ function AppointmentsPage() {
                       />
                     </label>
                     <label>
-                      <span>Phone number *</span>
+                      <span>{isArabic ? "رقم الهاتف *" : "Phone number *"}</span>
                       <input
                         required
                         type="tel"
@@ -231,7 +264,7 @@ function AppointmentsPage() {
                   </div>
                   <div className="appointment-fields two-columns">
                     <label>
-                      <span>Email address *</span>
+                      <span>{isArabic ? "البريد الإلكتروني *" : "Email address *"}</span>
                       <input
                         required
                         type="email"
@@ -241,7 +274,7 @@ function AppointmentsPage() {
                       />
                     </label>
                     <label>
-                      <span>Preferred time *</span>
+                      <span>{isArabic ? "الوقت المفضل *" : "Preferred time *"}</span>
                       <select
                         value={form.time}
                         onChange={(event) => updateForm("time", event.target.value)}
@@ -256,30 +289,42 @@ function AppointmentsPage() {
                   </div>
                   <div className="appointment-fields two-columns">
                     <label>
-                      <span>Office *</span>
+                      <span>{isArabic ? "المكتب *" : "Office *"}</span>
                       <select
                         value={form.office}
                         onChange={(event) => updateForm("office", event.target.value)}
                       >
-                        <option>Mazhar Office, Zamalek</option>
-                        <option>Mohandesin Office, Giza</option>
-                        <option>Video consultation</option>
+                        <option value="Mazhar Office, Zamalek">
+                          {isArabic ? "مكتب مظهر، الزمالك" : "Mazhar Office, Zamalek"}
+                        </option>
+                        <option value="Mohandesin Office, Giza">
+                          {isArabic ? "مكتب المهندسين، الجيزة" : "Mohandesin Office, Giza"}
+                        </option>
+                        <option value="Video consultation">
+                          {isArabic ? "استشارة عبر الفيديو" : "Video consultation"}
+                        </option>
                       </select>
                     </label>
                     <label>
-                      <span>Practice area *</span>
+                      <span>{isArabic ? "المجال القانوني *" : "Practice area *"}</span>
                       <select
                         value={form.practiceArea}
                         onChange={(event) => updateForm("practiceArea", event.target.value)}
                       >
                         {PRACTICE_CATALOG.map((area) => (
-                          <option key={area.id}>{area.titleEn}</option>
+                          <option key={area.id} value={area.titleEn}>
+                            {isArabic ? area.titleAr : area.titleEn}
+                          </option>
                         ))}
                       </select>
                     </label>
                   </div>
                   <label className="appointment-notes">
-                    <span>Briefly describe your legal matter</span>
+                    <span>
+                      {isArabic
+                        ? "اكتب نبذة عن المسألة القانونية"
+                        : "Briefly describe your legal matter"}
+                    </span>
                     <textarea
                       rows={4}
                       value={form.notes}
@@ -289,12 +334,20 @@ function AppointmentsPage() {
                   <label className="appointment-consent">
                     <input type="checkbox" required />
                     <span>
-                      I agree that my submitted data may be stored to process this request.
+                      {isArabic
+                        ? "أوافق على حفظ البيانات المقدمة لمعالجة هذا الطلب."
+                        : "I agree that my submitted data may be stored to process this request."}
                     </span>
                   </label>
                   {submissionError && <p className="appointment-error">{submissionError}</p>}
                   <button className="appointment-submit" type="submit" disabled={submitting}>
-                    {submitting ? "Sending request…" : "Send appointment request"}
+                    {submitting
+                      ? isArabic
+                        ? "جارٍ إرسال الطلب…"
+                        : "Sending request…"
+                      : isArabic
+                        ? "إرسال طلب الموعد"
+                        : "Send appointment request"}
                   </button>
                 </form>
               )}

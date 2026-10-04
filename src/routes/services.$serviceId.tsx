@@ -2,12 +2,28 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteHeader } from "../components/SiteHeader";
 import { PRACTICE_CATALOG } from "../data/practiceCatalog";
+import { useLanguage } from "../i18n/LanguageContext";
+import { SITE_URL, breadcrumbJsonLd, createSeoHead } from "../lib/seo";
 
 export const Route = createFileRoute("/services/$serviceId")({
   component: ServiceDetailPage,
   head: ({ params }) => {
     const area = PRACTICE_CATALOG.find((item) => item.serviceSlug === params.serviceId);
-    return { meta: [{ title: `${area?.titleEn ?? "Practice Area"} | MG LAW` }] };
+    const title = area?.titleEn ?? "Legal Practice Area";
+    return createSeoHead({
+      title: `${title} Lawyers in Egypt | MG Law Firm`,
+      description:
+        area?.shortDescEn ??
+        "Professional legal advice and representation from MG Law Firm in Cairo, Egypt.",
+      path: `/services/${params.serviceId}`,
+      image: area ? `${SITE_URL}${area.localImage}` : undefined,
+      keywords: [`${title} Egypt`, `${title} lawyer Cairo`],
+      jsonLd: breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Practice Areas", path: "/practice-areas" },
+        { name: title, path: `/services/${params.serviceId}` },
+      ]),
+    });
   },
 });
 
@@ -59,6 +75,7 @@ const corporateSections = [
 ];
 
 function ServiceDetailPage() {
+  const { isArabic } = useLanguage();
   const { serviceId } = Route.useParams();
   const area = PRACTICE_CATALOG.find((item) => item.serviceSlug === serviceId);
 
@@ -67,16 +84,22 @@ function ServiceDetailPage() {
       <div id="top" className="site-shell">
         <SiteHeader />
         <main className="service-missing">
-          <h1>Practice area not found</h1>
-          <a href="/practice-areas">Return to Practice Areas</a>
+          <h1>{isArabic ? "مجال العمل غير موجود" : "Practice area not found"}</h1>
+          <a href="/practice-areas">
+            {isArabic ? "العودة إلى مجالات العمل" : "Return to Practice Areas"}
+          </a>
         </main>
         <SiteFooter />
       </div>
     );
   }
 
-  const sections =
-    area.id === "corporate-commercial"
+  const sections = isArabic
+    ? area.detailsAr.map((copy, index) => ({
+        title: arabicServiceSectionTitles[area.id]?.[index] ?? `الخدمة القانونية ${index + 1}`,
+        copy,
+      }))
+    : area.id === "corporate-commercial"
       ? corporateSections
       : area.detailsEn.map((copy, index) => ({
           title: serviceSectionTitles[area.id]?.[index] ?? `Our Service ${index + 1}`,
@@ -87,42 +110,74 @@ function ServiceDetailPage() {
     <div id="top" className="site-shell service-detail-page">
       <SiteHeader />
       <main>
-        <section className="service-title-hero" aria-labelledby="service-page-title">
+        <section
+          className="service-title-hero"
+          aria-labelledby="service-page-title"
+          style={{
+            backgroundImage: `linear-gradient(90deg, rgb(0 0 0 / 0.62), rgb(0 0 0 / 0.24)), url("${area.localImage}")`,
+          }}
+        >
           <div className="service-title-inner">
-            <h1 id="service-page-title">{area.titleEn}</h1>
-            <div className="breadcrumbs service-breadcrumbs" aria-label="Breadcrumb">
-              <a href="/">Home</a>
+            <h1 id="service-page-title">{isArabic ? area.titleAr : area.titleEn}</h1>
+            <div
+              className="breadcrumbs service-breadcrumbs"
+              aria-label={isArabic ? "مسار الصفحة" : "Breadcrumb"}
+            >
+              <a href="/">{isArabic ? "الرئيسية" : "Home"}</a>
               <span aria-hidden="true">›</span>
-              <a href="/practice-areas">All Services</a>
+              <a href="/practice-areas">{isArabic ? "جميع الخدمات" : "All Services"}</a>
               <span aria-hidden="true">›</span>
               <span aria-hidden="true">…</span>
               <span aria-hidden="true">›</span>
-              <strong>{area.titleEn}</strong>
+              <strong>{isArabic ? area.titleAr : area.titleEn}</strong>
             </div>
           </div>
         </section>
 
         <div className="service-layout">
           <aside className="service-sidebar">
-            <h2>Service List</h2>
-            <nav aria-label="Service list">
-              {PRACTICE_CATALOG.map((item) => (
+            <div className="service-sidebar-heading">
+              <span>{isArabic ? "استكشف خبراتنا" : "Explore our expertise"}</span>
+              <h2>{isArabic ? "مجالات العمل" : "Practice Areas"}</h2>
+              <p>
+                {isArabic
+                  ? "انتقل بين خدماتنا القانونية المتخصصة واختر المجال الأنسب لاحتياجاتك."
+                  : "Navigate our specialist legal services and find the right expertise for your needs."}
+              </p>
+            </div>
+            <nav aria-label={isArabic ? "قائمة الخدمات" : "Service list"}>
+              {PRACTICE_CATALOG.map((item, index) => (
                 <a
                   className={item.serviceSlug === serviceId ? "active" : ""}
                   href={item.href}
                   key={item.id}
                   aria-current={item.serviceSlug === serviceId ? "page" : undefined}
                 >
-                  {item.titleEn}
+                  <span className="service-link-number" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="service-link-title">
+                    {isArabic ? item.titleAr : item.titleEn}
+                  </span>
+                  <span className="service-link-arrow" aria-hidden="true">
+                    {isArabic ? "←" : "→"}
+                  </span>
                 </a>
               ))}
             </nav>
+            <div className="service-sidebar-cta">
+              <span>{isArabic ? "هل تحتاج إلى توجيه قانوني؟" : "Need legal guidance?"}</span>
+              <a href="/appointments">
+                {isArabic ? "احجز استشارة" : "Book a consultation"}
+                <span aria-hidden="true">{isArabic ? "←" : "→"}</span>
+              </a>
+            </div>
           </aside>
 
           <article className="service-article">
-            <img src={area.localImage} alt={area.titleEn} />
-            <h2>{area.titleEn}</h2>
-            <p className="service-intro">{area.shortDescEn}</p>
+            <img src={area.localImage} alt={isArabic ? area.titleAr : area.titleEn} />
+            <h2>{isArabic ? area.titleAr : area.titleEn}</h2>
+            <p className="service-intro">{isArabic ? area.shortDescAr : area.shortDescEn}</p>
             <ol>
               {sections.map((section) => (
                 <li key={section.title}>
@@ -132,9 +187,9 @@ function ServiceDetailPage() {
               ))}
             </ol>
             <p>
-              MG Law Firm provides these services in compliance with relevant Egyptian laws and
-              regulations and represents clients before the competent governmental and regulatory
-              authorities.
+              {isArabic
+                ? "يقدم مكتب إم جي هذه الخدمات وفقاً للقوانين واللوائح المصرية ذات الصلة، ويمثل موكليه أمام الجهات الحكومية والتنظيمية المختصة."
+                : "MG Law Firm provides these services in compliance with relevant Egyptian laws and regulations and represents clients before the competent governmental and regulatory authorities."}
             </p>
           </article>
         </div>
@@ -192,5 +247,52 @@ const serviceSectionTitles: Record<string, string[]> = {
     "Investor Residency",
     "Dual Nationality",
     "Family Residency",
+  ],
+};
+
+const arabicServiceSectionTitles: Record<string, string[]> = {
+  "corporate-commercial": [
+    "تأسيس الشركات",
+    "حوكمة الشركات",
+    "العناية القانونية الواجبة",
+    "الاندماج والاستحواذ",
+  ],
+  "contracts-agreements": [
+    "الاتفاقيات التجارية",
+    "ترتيبات الشركات",
+    "المشروعات والتوريد",
+    "المخاطر التعاقدية",
+  ],
+  "civil-law-litigation": [
+    "التمثيل أمام المحاكم",
+    "القضاء الإداري",
+    "المنازعات التجارية",
+    "التحكيم والتسوية",
+  ],
+  "labour-hr-services": ["اللوائح الداخلية", "عقود العمل", "التحقيقات الإدارية", "منازعات العمل"],
+  "intellectual-property": [
+    "تسجيل العلامات",
+    "الاعتراضات والتظلمات",
+    "مكافحة التقليد",
+    "حماية حقوق المؤلف",
+  ],
+  "real-estate": ["فحص الملكية", "التسجيل العقاري", "الاتفاقيات العقارية", "الموافقات الإدارية"],
+  "licences-approvals": [
+    "سجل الاستيراد والتصدير",
+    "التراخيص الصناعية",
+    "الموافقات الدوائية",
+    "التصاريح المتخصصة",
+  ],
+  "legal-consultancy-research": [
+    "الآراء القانونية",
+    "مراجعات الامتثال",
+    "سياسات الحوكمة",
+    "دراسات دخول السوق",
+  ],
+  "residency-dual-nationality": [
+    "الجنسية عن طريق الاستثمار",
+    "إقامة المستثمر",
+    "ازدواج الجنسية",
+    "إقامة الأسرة",
   ],
 };
